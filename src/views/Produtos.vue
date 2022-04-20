@@ -10,7 +10,7 @@
 						</p>
 					</div>
 					<div class="col-md-6">
-						<img src="" alt="">
+						<img src="" alt="" class="img-fluid">
 					</div>
 				</div>
 			</div>
@@ -19,7 +19,7 @@
 
 			<div class="product-test">
 				<h3 class="d-inline-block">Lista de Produtos</h3>
-				<button class="btn btn-primary float-right">Add Produto</button>
+				<button @click="addNovo" class="btn btn-primary float-right">Add Produto</button>
 
 				<div class="table-responsive">
 					<table class="table">
@@ -62,10 +62,10 @@
 							<!--produto principal-->
 							<div class="col-md-8">
 								<div class="form-group">
-									<input type="text" name="" id="" placeholder="Nome do Produto" class="form-control">
+									<input type="text" name="" id="" placeholder="Nome do Produto" v-model="produto.nome" class="form-control">
 								</div>
 								<div class="form-group">
-
+									<vue-editor v-model="produto.descricao"></vue-editor>
 								</div>
 							</div>
 							<!--produto sidebar-->
@@ -74,10 +74,10 @@
 								<hr>
 
 								<div class="form-group">
-									<input type="text" name="" id="" placeholder="Preço do Produto" class="form-control">
+									<input type="text" name="" id="" placeholder="Preço do Produto" v-model="produto.preco" class="form-control">
 								</div>
 								<div class="form-group">
-									<input type="text" name="" id="" placeholder="Tags Produto" class="form-control">
+									<input type="text" @keyup.188="addTag" placeholder="Tags Produto" v-model="tag" class="form-control">
 
 									<div class="d-flex">
 										<p>
@@ -88,7 +88,7 @@
 
 								<div class="form-group">
 									<label for="product_image">Imagem do Produto</label>
-									<input type="file" name="" id="" class="form-control">
+									<input type="file" @change="subirImagem" class="form-control">
 								</div>
 
 								<div class="form-group d-flex">
@@ -113,7 +113,69 @@
 	</div>
 </template>
 <script>
+import $ from 'jquery'
+import {fb, db} from '../firebase'
+import { VueEditor } from "vue2-editor";
 export default {
-	name: "Produtos"
+	name: "Produtos",
+	components: {
+		VueEditor
+	},
+	data() {
+		return {
+			produtos: [],
+			produto: {
+				nome: null,
+				descricao: null,
+				preco: null,
+				tags: [],
+				imagens: []
+			},
+			ativarItem: null,
+			modal: null,
+			tag: null
+		}
+	},
+	firestore() {
+		return {
+			produtos: db.collection('produtos')
+		}
+	},
+	methods: {
+		redefinir() {
+			this.produto ={
+				nome: null,
+				descricao: null,
+				preco: null,
+				tags: [],
+				imagens: []
+			}
+		},
+		addNovo() {
+			this.modal = 'novo'
+			this.redefinir()
+			$('#produto').modal('show')
+		},
+		addTag(){
+			this.produto.tags.push(this.tag)
+			this.tag = ""
+		},
+		subirImagem(e) {
+			if (e.target.files[0]) {
+				let arquivo = e.target.files[0]
+				var storageRef = fb.storage().ref('produtos/' + Math.random() + '_' + arquivo.name)
+				let subirTarefa = storageRef.put(arquivo)
+				subirTarefa.on('state_changed', (snapshot) => {
+					console.log(snapshot);
+				}, (error) => {
+					console.log(error);
+				}, () => {
+					subirTarefa.snapshot.ref.getDownloadURL().then((downloadURL) => {
+						this.produto.imagens.push(downloadURL)
+					})
+				})
+			}
+		}
+	}
 }
 </script>
