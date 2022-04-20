@@ -1,6 +1,7 @@
 <template>
 	<div class="home">
         <Navbar />
+		<Hero />
 		<produtos-lista />
 		<div class="container h-100">
 			<div class="row p-5 h-100 justify-content-center align-items-center">
@@ -16,12 +17,18 @@
 				</div>
 			</div>
 		</div>
+		<entrar />
 	</div>
 </template>
 <script>
-
+import Entrar from '@/components/Entrar.vue'
+//import Produtos from '@/sections/Produtos.vue'
+import Hero from '@/components/Hero.vue'
 export default {
 	name: "Home",
+	components: {
+		Entrar, Hero
+	}
 }
 </script>
 <style lang="">
