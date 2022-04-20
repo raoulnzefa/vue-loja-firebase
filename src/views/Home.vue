@@ -1,7 +1,7 @@
 <template>
 	<div class="home">
         <Navbar />
-		<ProdutosLista />
+		<produtos-lista />
 		<div class="container h-100">
 			<div class="row p-5 h-100 justify-content-center align-items-center">
 				<div class="col-md-6">
@@ -19,14 +19,9 @@
 	</div>
 </template>
 <script>
-import ProdutosLista from '../sections/ProdutoLista.vue';
-import Navbar from '@/components/Navbar.vue';
+
 export default {
 	name: "Home",
-
-	components: {
-		ProdutosLista, Navbar
-	}
 }
 </script>
 <style lang="">
