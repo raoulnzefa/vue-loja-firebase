@@ -15,6 +15,9 @@ import './assets/app.scss'
 Vue.component('Navbar', require('./components/Navbar.vue').default)
 Vue.component('produtos-lista', require('./sections/ProdutoLista.vue').default)
 
+import VueCarousel from 'vue-carousel'
+Vue.use(VueCarousel)
+
 Vue.config.productionTip = false
 
 new Vue({

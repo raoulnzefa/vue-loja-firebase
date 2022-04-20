@@ -6,13 +6,13 @@
 				<div class="col-md-4" v-for="(produto, index) in produtos" v-bind:key="index">
 					<div class="card product-item">
 						<carousel :perPage="1">
-							<slide>
-								<img :src="image" alt="" class="card-img-top" width="250px">
+							<slide v-for="(imagem, index) in produtos.imagens" v-bind:key="index">
+								<img :src="imagem" alt="" class="card-img-top" width="250px">
 							</slide>
 						</carousel>
 						<div class="card-body">
 							<div class="d-flex justify-content-between">
-								<h5 class="card-title">{{produto.nome}}</h5>
+								<h5 class="card-title">{{produto.titulo}}</h5>
 								<h5 class="card-price">{{produto.preco | currency}} </h5>
 							</div>
 
@@ -35,6 +35,8 @@ export default {
 			produtos: []
 		}
 	},
+	methods: {
+	},
 	firestore() {
 		return {
 			produtos: db.collection('produtos')
@@ -42,3 +44,11 @@ export default {
 	}
 }
 </script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+    .products{
+        margin-top: 7rem;
+        background: #f2f2f2;
+        padding-bottom: 3rem;
+    }
+</style>
