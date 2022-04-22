@@ -4,13 +4,13 @@
 			<div class="intro h-100">
 				<div class="row h-100 justify-content-center align-items-center">
 					<div class="col-md-6">
-						<h3>Produtos</h3>
+						<h3>Pedidos</h3>
 						<p>
-							Lista dos itens da loja
+							Lista de Pedidos da loja
 						</p>
 					</div>
 					<div class="col-md-6">
-						<img src="" alt="" class="img-fluid">
+						<img src="/img/svg/oreders.svg" alt="" class="img-fluid">
 					</div>
 				</div>
 			</div>
@@ -18,8 +18,8 @@
 			<hr>
 
 			<div class="product-test">
-				<h3 class="d-inline-block">Lista de Produtos</h3>
-				<button @click="addNovo" class="btn btn-primary float-right">Add Produto</button>
+				<h3 class="d-inline-block">Lista de Pedidos</h3>
+				<button @click="addNovo" class="btn btn-primary float-right">Add Pedido</button>
 
 				<div class="table-responsive">
 					<table class="table">
@@ -117,7 +117,7 @@ import {fb, db} from '../firebase'
 import { VueEditor } from "vue2-editor";
 import Swal from 'sweetalert2'
 export default {
-	name: "Produtos",
+	name: "Pedidos",
 	components: {
 		VueEditor
 	},
