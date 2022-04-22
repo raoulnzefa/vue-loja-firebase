@@ -32,7 +32,7 @@
 						</thead>
 
 						<tbody>
-							<tr>
+							<tr v-for="(produto, index) in produtos" :key="index">
 								<td>{{produto.nome }}</td>
 								<td>{{produto.preco}}</td>
 
@@ -77,10 +77,9 @@
 									<input type="text" name="" id="" placeholder="Preço do Produto" v-model="produto.preco" class="form-control">
 								</div>
 								<div class="form-group">
-									<input type="text" @keyup.188="addTag" placeholder="Tags Produto" v-model="tag" class="form-control">
-
+									<input type="text" placeholder="Produto tags" v-model.trim="tag" @keypress.prevent.stop.enter="addTag" class="form-control">
 									<div class="d-flex">
-										<p>
+										<p v-for='(tag, index) in produto.tags' v-bind:key="index">
 											<span class="p-1">{{tag}}</span>
 										</p>
 									</div>
@@ -104,7 +103,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-						<button type="button" class="btn btn-primary">Salvar Alterações</button>
+						<button @click="addProduto()" type="button" class="btn btn-primary" v-if="modal == 'novo'">Salvar Alterações</button>
 						<button type="button" class="btn btn-primary">Aplicar Alterações</button>
 					</div>
 				</div>
@@ -116,6 +115,7 @@
 import $ from 'jquery'
 import {fb, db} from '../firebase'
 import { VueEditor } from "vue2-editor";
+import Swal from 'sweetalert2'
 export default {
 	name: "Produtos",
 	components: {
@@ -142,7 +142,7 @@ export default {
 		}
 	},
 	methods: {
-		redefinir() {
+		redefinir() {	
 			this.produto ={
 				nome: null,
 				descricao: null,
@@ -156,10 +156,12 @@ export default {
 			this.redefinir()
 			$('#produto').modal('show')
 		},
-		addTag(){
-			this.produto.tags.push(this.tag)
-			this.tag = ""
-		},
+		addTag() {
+                if (this.tag && ! this.tags.includes(this.tag)) {
+                    this.product.tags.push(this.tag);
+                    this.tag = '';
+                }
+            },
 		subirImagem(e) {
 			if (e.target.files[0]) {
 				let arquivo = e.target.files[0]
@@ -175,6 +177,14 @@ export default {
 					})
 				})
 			}
+		},
+		addProduto() {
+			this.$firestore.produtos.add(this.produto)
+
+			Swal.fire({	
+				type: 'success',
+				title: "Produto adicionado com sucesso"
+			})
 		}
 	}
 }
