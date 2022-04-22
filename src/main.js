@@ -4,10 +4,11 @@ import router from "./router";
 import jQuery from 'jquery'
 import VueFirestore from 'vue-firestore'
 require('firebase/firestore')
+import { fb } from './firebase'
 
 Vue.use(VueFirestore)
 
-window.$ = window.jQuery = jQuery;
+global.$ = window.jQuery = jQuery;
 
 import 'popper.js'
 import 'bootstrap'
@@ -15,7 +16,7 @@ import './assets/app.scss'
 
 import Swal from 'sweetalert2';
 
-window.Swal = Swal;
+global.Swal = Swal;
 
 const Toast = Swal.mixin({
     toast: true,
@@ -24,7 +25,9 @@ const Toast = Swal.mixin({
     timer: 3000
 })
 
-window.Toast = Toast
+global.Toast = Toast
+
+import store from './store.js';
 
 Vue.component('Navbar', require('./components/Navbar.vue').default)
 Vue.component('produtos-lista', require('./sections/ProdutoLista.vue').default)
@@ -34,7 +37,15 @@ Vue.use(VueCarousel)
 
 Vue.config.productionTip = false
 
-new Vue({
-    router,
-    render: h => h(App),
-}).$mount('#app')
+let app = ''
+
+fb.auth().onAuthStateChanged(function(user) {
+    console.log(user);
+    if (!app) {
+        new Vue({
+            router,
+            store,
+            render: h => h(App),
+        }).$mount('#app')
+    }
+})

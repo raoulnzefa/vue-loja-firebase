@@ -5,16 +5,16 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-body">
-						<ul class="nav nav fill nav-pills mb-3" id="pills-home-tab" role="tablist">
+						<ul class="nav nav fill nav-pills mb-3" id="pills-tab" role="tablist">
 							<li class="nav-item">
-								<a class="nav-link active"  data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true">Entrar</a>
+								<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true">Entrar</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" id="pills-register-tab" data-toggle="pill" href="#pills-register" role="tab" aria-controls="pills-register" aria-selected="true">Cadastrar-se</a>
 							</li>
 						</ul>
 
-						<div class="tab-content" id="pills-content">
+						<div class="tab-content" id="pills-tabContent">
 							<div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
 								<h5 class="text-center">Faça login por favor</h5>
 								<div class="form-group">
@@ -41,8 +41,7 @@
 								</div>
 								<div class="form-group">
 									<label for="email">Seu Endereço de Email</label>
-									<input type="text" v-model="email" name="" id="email" class="form-control" placeholder="Seu Email" aria-describedby="emailHelp">
-									<small class="form-text text-muted">Nunca compartilharemos seu e-mail com mais ninguém.</small>
+									<input type="email" v-model="email" name="" id="email" class="form-control" placeholder="Seu Email" aria-describedby="emailHelp">
 								</div>
 								<div class="form-group">
 									<label for="password">Sua Senha de Acesso</label>
@@ -95,14 +94,14 @@ export default {
 			.then((user) => {
 				$('#entrar').modal('hide')
 
-				db.collection('perfil').doc(user.user.uid).set({
+				db.collection('perfis').doc(user.user.uid).set({
 					nome: this.nome
 				})
 				.then(function() {
 					console.log("Documento registrado com sucesso!");
 				})
 				.catch(function (error) {
-					console.error("Erro ao registrar documento: " + error);
+					console.error("Erro ao registrar documento: ", error);
 				})
 				this.$router.replace('admin')
 			})
@@ -121,3 +120,6 @@ export default {
 	}
 }
 </script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+</style>

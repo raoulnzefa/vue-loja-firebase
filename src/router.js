@@ -51,6 +51,18 @@ const router = new Router({
                 }
             ]
         },
+        {
+            path: '/confirmar',
+            name: 'Confirmar',
+            component: () =>
+                import ('./views/Confirmar.vue')
+        },
+        {
+            path: '/sobre',
+            name: 'Sobre',
+            component: () =>
+                import ('./views/Sobre.vue')
+        }
     ]
 })
 

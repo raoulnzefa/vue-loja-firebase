@@ -2,25 +2,25 @@
 	<div class="products">
 		<div class="container">
 			<div class="intro h-100">
-				<div class="row h100 align-items-center">
-					<div class="col-md ml-3">
+				<div class="row h-100 align-items-center">
+					<div class="col-md-6 ml-3">
 						<h3>Configurações de Perfil</h3>
 						<p>
 							ALtere suas configurações de perfil por aqui
 						</p>
 					</div>
 					<div class="col-md-5">
-						<img src="" alt="" width="300" class="img-fluid">
+						<img src="/img/svg/profile.svg" alt="" width="300" class="img-fluid">
 					</div>
 				</div>
 			</div>
 			<div class="profile-content">
 				<ul class="nav nav-pills ml-3" id="minhaTabela" role="tablist">
 					<li class="nav-item">
-						<a href="#perfil" class="nav-link active" id="perfil-tab" role="tab" aria-controls="perfil" aria-selected="true">Perfil</a>
+						<a href="#perfil"  class="nav-link active" id="perfil-tab" data-toggle="tab"  role="tab" aria-controls="perfil" aria-selected="true">Perfil</a>
 					</li>
 					<li class="nav-item">
-						<a href="#conta" class="nav-link" id="conta-tab" role="tab" aria-controls="conta" aria-selected="false">Configurações de conta</a>
+						<a href="#conta" class="nav-link" id="conta-tab" data-toggle="tab" role="tab" aria-controls="conta" aria-selected="false">Configurações de conta</a>
 					</li>
 				</ul>
 				<div class="tab-content" id="minhaTabContent">
@@ -29,22 +29,22 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<input type="text" name="" id="" v-model="prefil.nome" placeholder="Nome completo" class="form-control">
+										<input type="text" v-model="perfil.nome" placeholder="Nome completo" class="form-control">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<input type="text" name="" id="" v-model="prefil.telefone" placeholder="Telefone" class="form-control">
+										<input type="text" v-model="perfil.telefone" placeholder="Telefone" class="form-control">
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<input type="text" name="" id="" v-model="prefil.endereco" placeholder="Endereço" class="form-control">
+										<input type="text" v-model="perfil.endereco" placeholder="Endereço" class="form-control">
 									</div>
 								</div>
 								<div class="col-md-8">
 									<div class="form-group">
-										<input type="text" name="" id="" v-model="prefil.cep" placeholder="Cep" class="form-control">
+										<input type="text" v-model="perfil.cep" placeholder="Cep" class="form-control">
 									</div>
 								</div>
 								<div class="col-md-4">
@@ -129,16 +129,16 @@ export default {
 				fotoUrl: null,
 				emailVerificado: null,
 				password: null,
-				confirmarSenha: null,
+				confirmaSenha: null,
 				uid: null
 			}
 		}
 	},
 	firestore() {
-		const usuario = fb.auth().currentUser
+		const user = fb.auth().currentUser
 
 		return {
-			perfil: db.collection('perfil').doc(usuario.uid)
+			perfil: db.collection('perfis').doc(user.uid)
 		}
 	},
 	methods: {
@@ -163,3 +163,6 @@ export default {
 	}
 }
 </script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+</style>

@@ -19,7 +19,7 @@
 							<img class="img-responsive img-rounded" src="/img/user.png" alt="Foto do usuário">
 						</div>
 						<div class="user-info">
-							<span class="uiser-name">Fulano
+							<span class="user-name">Fulano
 								<strong>De Tal</strong>
 							</span>
 							<span class="user-role"> {{email }}</span>
@@ -33,7 +33,7 @@
 					<div class="sidebar-item sidebar-search">
 						<div>
 							<div class="input-group">
-								<input type="text" class="form-control serach-menu" placeholder="Pesquisar...">
+								<input type="text" class="form-control search-menu" placeholder="Pesquisar...">
 								<div class="input-group-append">
 									<span class="input-group-text">
 										<i class="fa fa-search" aria-hidden="true"></i>
@@ -62,19 +62,19 @@
 							</li>
 							<li>
 								<router-link to="/admin/pedidos">
-                                <i class="fab fa-amazon"></i>
+                                <i class="fa fa-shopping-cart"></i>
                                 <span>Pedidos</span>
 								</router-link>
 							</li>
 							<li>
 								<router-link to="/admin/perfil">
-                                <i class="fab fa-amazon"></i>
+                                <i class="fa fa-user"></i>
                                 <span>Perfil</span>
 								</router-link>
 							</li>
 							<li>
 								<a href="#" @click="sair">
-                                <i class="fab fa-power-off"></i>
+                                <i class="fa fa-power-off"></i>
                                 <span>Sair</span>
 								</a>
 							</li>
@@ -99,7 +99,7 @@ export default {
 	data() {
 		return {
 			nome: null,
-			email: null
+			email: null,
 		}
 	},
 	components: {
@@ -120,8 +120,8 @@ export default {
 		}
 	},
 	created() {
-		let usuario = fb.auth().currentUser 
-		this.email = usuario.email
+		let user = fb.auth().currentUser 
+		this.email = user.email
 	}
 }
 </script>
