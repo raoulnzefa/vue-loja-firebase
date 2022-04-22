@@ -23,7 +23,7 @@
 						<a href="#conta" class="nav-link" id="conta-tab" data-toggle="tab" role="tab" aria-controls="conta" aria-selected="false">Configurações de conta</a>
 					</li>
 				</ul>
-				<div class="tab-content" id="minhaTabContent">
+				<div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade show active pt-3" id="perfil" role="tabpanel" aria-labelledby="profile-tab">
 						<div class="container">
 							<div class="row">
@@ -49,7 +49,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										<input type="submit" @click="atualizarPerfil" value="Salvar Alterações" class="btn btn-primary w-100">
+										<input type="submit" @click="atualizarPerfil()" value="Salvar Alterações" class="btn btn-primary w-100">
 									</div>
 								</div>
 							</div>
@@ -142,6 +142,7 @@ export default {
 	},
 	methods: {
 		atualizarPerfil() {
+			console.log(this.perfil)
 			this.$firestore.perfil.update(this.perfil);
 		},
 		redefinirSenha() {
