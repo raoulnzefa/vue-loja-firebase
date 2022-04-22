@@ -22,7 +22,7 @@
 							<span class="user-name">Fulano
 								<strong>De Tal</strong>
 							</span>
-							<span class="user-role"> {{email }}</span>
+							<span class="user-role"> {{ email }}</span>
 							<span class="user-status">
 								<i class="fa fa-circle"></i>
 								<span>Online</span>

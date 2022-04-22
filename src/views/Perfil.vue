@@ -10,21 +10,21 @@
 						</p>
 					</div>
 					<div class="col-md-5">
-						<img src="/img/svg/profile.svg" alt="" width="300" class="img-fluid">
+						<img src="/img/svg/profile.svg" width="300" alt="" class="img-fluid">
 					</div>
 				</div>
 			</div>
 			<div class="profile-content">
-				<ul class="nav nav-pills ml-3" id="minhaTabela" role="tablist">
+				<ul class="nav nav-pills ml-3" id="myTab" role="tablist">
 					<li class="nav-item">
-						<a href="#perfil"  class="nav-link active" id="perfil-tab" data-toggle="tab"  role="tab" aria-controls="perfil" aria-selected="true">Perfil</a>
+						<a href="#perfil"  class="nav-link active" id="profile-tab" data-toggle="tab"  role="tab" aria-controls="perfil" aria-selected="true">Perfil</a>
 					</li>
 					<li class="nav-item">
 						<a href="#conta" class="nav-link" id="conta-tab" data-toggle="tab" role="tab" aria-controls="conta" aria-selected="false">Configurações de conta</a>
 					</li>
 				</ul>
 				<div class="tab-content" id="minhaTabContent">
-					<div class="tab-pane fade show active pt-3" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
+					<div class="tab-pane fade show active pt-3" id="perfil" role="tabpanel" aria-labelledby="profile-tab">
 						<div class="container">
 							<div class="row">
 								<div class="col-md-6">
@@ -85,7 +85,7 @@
 										<input type="text" v-model="conta.confirmaSenha" placeholder="Confirmar Senha" class="form-control">
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<div class="form-group">
 										<input type="file" @change="enviarImagem" class="form-control">
 									</div>
@@ -97,7 +97,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										<input type="button" @click="redefinirSenha" value="Redefinir senha email" class="btn btn-sucess w-100">
+										<input type="button" @click="redefinirSenha" value="Redefinir senha email" class="btn btn-success w-100">
 									</div>
 								</div>
 							</div>
@@ -118,32 +118,34 @@ export default {
 	data() {
 		return {
 			perfil: {
-				nome: null,
-				telefone: null,
-				endereco: null,
-				cep: null
+				nome:null,
+				telefone:null,
+				endereco:null,
+				cep:null
 			},
 			conta: {
-				nome: null,
-				email: null,
-				fotoUrl: null,
-				emailVerificado: null,
-				password: null,
-				confirmaSenha: null,
-				uid: null
+				nome:null,
+				email:null,
+				fotoUrl:null,
+				emailVerificado:null,
+				password:null,
+				confirmaSenha:null,
+				uid:null
 			}
 		}
 	},
 	firestore() {
-		const user = fb.auth().currentUser
-
+		const user = fb.auth().currentUser;
 		return {
-			perfil: db.collection('perfis').doc(user.uid)
+			perfil: db.collection('perfis').doc(user.uid),
 		}
 	},
 	methods: {
+		atualizarPerfil() {
+			this.$firestore.perfil.update(this.perfil);
+		},
 		redefinirSenha() {
-			const auth = fb.auth()
+			const auth = fb.auth();
 
 			auth.sendPasswordResetEmail(auth.currentUser.email).then(() => {
 				Toast.fire({
@@ -152,10 +154,7 @@ export default {
 				})
 			}).catch((error) => {
 				console.log(error);
-			})
-		},
-		atualizarPerfil() {
-			this.$firestore.perfil.update(this.perfil)
+			});
 		},
 		enviarImagem() {
 

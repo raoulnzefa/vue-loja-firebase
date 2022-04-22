@@ -21,7 +21,9 @@
 					<form class="form-inline my-2 my-lg-0">
 						<input type="search" name="" id="" class="form-control mr-sm-2" placeholder="Pesquisar" aria-label="Pesquisar">
 						<a href="" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#login">Vamos começar</a>
-						<a href="" class="btn btn-outline-info border-0 mx-2 my-2 my-sm-0" data-toggle="modal" data-target="#miniCart"><i class="fas fa-cart-plus"></i></a>
+						<a href="" class="btn btn-outline-info border-0 mx-2 my-2 my-sm-0" data-toggle="modal" data-target="#miniCarrrinho">
+							<i class="fas fa-cart-plus"></i>
+						</a>
 					</form>
 				</div>
 			</div>
