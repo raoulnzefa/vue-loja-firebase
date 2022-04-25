@@ -4,7 +4,7 @@
 	</div>
 </template>
 <script>
-
+import $ from 'jquery'
 export default {
 	name: 'add-no-carrinho',
 	props: {

@@ -35,6 +35,8 @@ global.Toast = Toast
 import store from './store.js';
 
 Vue.component('Navbar', require('./components/Navbar.vue').default)
+Vue.component('add-no-carrinho', require('./components/AddNoCarrinho.vue').default)
+Vue.component('mini-cart', require('./components/MiniCarrinho.vue').default)
 Vue.component('produtos-lista', require('./sections/ProdutoLista.vue').default)
 
 import VueCarousel from 'vue-carousel'

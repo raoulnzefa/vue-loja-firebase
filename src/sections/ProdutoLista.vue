@@ -6,16 +6,21 @@
 				<div class="col-md-4" v-for="(produto, index) in produtos" v-bind:key="index">
 					<div class="card product-item">
 						<carousel :perPage="1">
-							<slide v-for="(imagem, index) in produtos.imagens" v-bind:key="index">
+							<slide v-for="(imagem, index) in produto.imagens" :key="index">
 								<img :src="imagem" alt="" class="card-img-top" width="250px">
 							</slide>
 						</carousel>
 						<div class="card-body">
 							<div class="d-flex justify-content-between">
 								<h5 class="card-title">{{produto.titulo}}</h5>
-								<h5 class="card-price">{{produto.preco | currency}} </h5>
+								<h5 class="card-price">{{produto.preco | currency : 'BRL'}} </h5>
 							</div>
-
+							<add-no-carrinho
+							:imagem="getImagem(produto.imagens)"
+							:p-id="produto.id"
+							:preco="produto.preco"
+							:nome="produto.nome">
+							</add-no-carrinho>
 						</div>
 					</div>
 				</div>
@@ -24,8 +29,10 @@
 	</div>
 </template>
 <script>
+import AddNoCarrinho from '../components/AddNoCarrinho.vue'
 import {db} from '../firebase'
 export default {
+	components: { AddNoCarrinho },
 	name: "Produtos-Lista",
 	props: {
 		msg: String
@@ -36,6 +43,9 @@ export default {
 		}
 	},
 	methods: {
+		getImagem(imagens) {
+		return imagens[0]
+	},
 	},
 	firestore() {
 		return {

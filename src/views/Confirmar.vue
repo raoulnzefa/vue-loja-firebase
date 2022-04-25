@@ -12,14 +12,14 @@
 								<h5 class="mt-0">item.produtoNome
 									<span class="float-right" @click="$store.commit('removerDoCarrinho', item)">X</span>
 								</h5>
-								<p class="mt-0">item.produtoPreco | currency </p>
+								<p class="mt-0">item.produtoPreco | currency : 'BRL'</p>
 								<p class="mt-0">Quantidade: item.produtoQuantidade</p>
 							</div>
 						</li>
 					</ul>
 					<div class="col-md-4">
 						<p>
-							Preço Total: {{this.$store.getters.precoTotal | currency }}
+							Preço Total: {{this.$store.getters.precoTotal | currency : 'BRL'}}
 						</p>
 
 						<card class="stripe-cerd"
