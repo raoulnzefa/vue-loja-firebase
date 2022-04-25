@@ -17,14 +17,14 @@
 			<div class="profile-content">
 				<ul class="nav nav-pills ml-3" id="myTab" role="tablist">
 					<li class="nav-item">
-						<a href="#perfil"  class="nav-link active" id="profile-tab" data-toggle="tab"  role="tab" aria-controls="perfil" aria-selected="true">Perfil</a>
+						<a class="nav-link active" id="perfil-tab" data-toggle="tab" href="#perfil" role="tab" aria-controls="perfil" aria-selected="true">Perfil</a>
 					</li>
 					<li class="nav-item">
 						<a href="#conta" class="nav-link" id="conta-tab" data-toggle="tab" role="tab" aria-controls="conta" aria-selected="false">Configurações de conta</a>
 					</li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
-					<div class="tab-pane fade show active pt-3" id="perfil" role="tabpanel" aria-labelledby="profile-tab">
+					<div class="tab-pane fade show active pt-3" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
 						<div class="container">
 							<div class="row">
 								<div class="col-md-6">
@@ -49,7 +49,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										<input type="submit" @click="atualizarPerfil()" value="Salvar Alterações" class="btn btn-primary w-100">
+										<input type="submit" @click="atualizarPerfil" value="Salvar Alterações" class="btn btn-primary w-100">
 									</div>
 								</div>
 							</div>
@@ -135,16 +135,13 @@ export default {
 		}
 	},
 	firestore() {
-		const user = fb.auth().currentUser;
+		const user = fb.auth().currentUser
+		console.log(user);
 		return {
 			perfil: db.collection('perfis').doc(user.uid),
 		}
 	},
 	methods: {
-		atualizarPerfil() {
-			console.log(this.perfil)
-			this.$firestore.perfil.update(this.perfil);
-		},
 		redefinirSenha() {
 			const auth = fb.auth();
 
@@ -157,9 +154,17 @@ export default {
 				console.log(error);
 			});
 		},
+		atualizarPerfil() {
+			console.log(this.perfil)
+			this.$firestore.perfil.update(this.perfil);
+		},
 		enviarImagem() {
 
 		}
+	},
+	created() {
+		let user = fb.auth().currentUser 
+		this.email = user.email
 	}
 }
 </script>

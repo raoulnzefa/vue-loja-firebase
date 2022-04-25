@@ -2,11 +2,16 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from "./router";
 import jQuery from 'jquery'
+import { fb } from './firebase'
 import VueFirestore from 'vue-firestore'
 require('firebase/firestore')
-import { fb } from './firebase'
 
-Vue.use(VueFirestore)
+// O nome da propriedade. O padrão é '.key'.
+// se é enumerável ou não. O padrão é verdadeiro.
+Vue.use(VueFirestore, {
+    key: 'id',
+    enumerable: true
+})
 
 global.$ = window.jQuery = jQuery;
 

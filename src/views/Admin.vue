@@ -122,6 +122,7 @@ export default {
 	created() {
 		let user = fb.auth().currentUser 
 		this.email = user.email
+		this.nome = user.nome
 	}
 }
 </script>

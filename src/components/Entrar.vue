@@ -94,7 +94,7 @@ export default {
 			.then((user) => {
 				$('#entrar').modal('hide')
 
-				db.collection('perfis').doc(user.user.uid).set({
+				db.collection("perfis").doc(user.user.uid).set({
 					nome: this.nome
 				})
 				.then(function() {
