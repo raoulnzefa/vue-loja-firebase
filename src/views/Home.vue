@@ -18,12 +18,13 @@
 			</div>
 		</div>
 		<entrar />
+		<mini-carrinho />
 	</div>
 </template>
 <script>
-import Entrar from '@/components/Entrar.vue'
-//import Produtos from '@/sections/Produtos.vue'
 import Hero from '@/components/Hero.vue'
+import Entrar from '@/components/Entrar.vue'
+
 export default {
 	name: "Home",
 	components: {

@@ -6,27 +6,30 @@
 				<div class="col-md-8">
 					<h4 class="py-4">Confirmar</h4>
 					<ul>
-						<li class="media">
+						<li v-for="(item, index) in $store.state.carrinho" :key="index" class="media">
 							<img src="" alt="" class="align-self-center mr-3">
 							<div class="media-body">
-								<h5 class="mt-0">item.produtoNome
+								<h5 class="mt-0">{{item.produtoNome}}
 									<span class="float-right" @click="$store.commit('removerDoCarrinho', item)">X</span>
 								</h5>
-								<p class="mt-0">item.produtoPreco | currency : 'BRL'</p>
-								<p class="mt-0">Quantidade: item.produtoQuantidade</p>
+								<p class="mt-0">{{item.produtoPreco | currency : 'BRL'}}</p>
+								<p class="mt-0">Quantidade: {{item.produtoQuantidade}}</p>
 							</div>
 						</li>
 					</ul>
-					<div class="col-md-4">
-						<p>
-							Preço Total: {{this.$store.getters.precoTotal | currency : 'BRL'}}
-						</p>
+				</div>
+				<div class="col-md-4">
+					<p>
+						Preço Total: {{this.$store.getters.precoTotal | currency : 'BRL'}}
+					</p>
 
-						<card class="stripe-cerd"
-						:class="{complete }"
-						stripe='pk_test_XXXXXXXXXXXXXXXXXXXXXXXX'
-						@change="complete = $event.complete" />
-					</div>
+					<card class="stripe-card"
+					:class="{complete }"
+					stripe='pk_test_XXXXXXXXXXXXXXXXXXXXXXXX'
+					@change="complete = $event.complete" />
+
+
+					<button class='pay-with-stripe btn btn-primary mt-4' @click='pay' :disabled='!complete'>Pague com cartão de crédito</button>
 				</div>
 			</div>
 		</div>
@@ -50,6 +53,12 @@ export default {
 		pay() {
 			createToken().then(data => console.log(data.token))
 		}
+	},
+	
+	mounted() {
+	setTimeout(() => {
+		this.showStripeForm = false
+	}, 2000)
 	}
 }
 </script>

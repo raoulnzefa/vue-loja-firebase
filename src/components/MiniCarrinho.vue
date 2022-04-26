@@ -6,18 +6,20 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Minha Sacola</h5>
-						<button type="submit" class="close" data-dismiss="modal" aria-label="Fechar">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
 							<span aria-hidden="true">&times;</span>
 						</button>			
 					</div>
 					<div class="modal-body">
 						<ul>
-							<li class="media">
-								<img src="" alt="" class="align-self-center mr-3">
+							<li class="media" v-for="(item, index) in $store.state.carrinho" :key="index">
+								<img :src="item.produtoImagem" width="80px" class="align-self-center mr-3" alt="">
 								<div class="media-body">
-									<h5 class="mt-0">item.produtoNome</h5>
-									<span class="mt-0">item.produtoPreco</span>
-									<span class="mt-0">Quantidade: item.produtoQuantidade</span>
+									<h5 class="mt-0">{{item.produtoNome}}
+										<span class='float-right' @click="$store.commit('removerDoCarrinho',item)">X</span>
+									</h5>
+									<p class="mt-0">{{item.produtoPreco | currency}}</p>
+									<p class="mt-0">Quantidade: {{item.produtoQuantidade}}</p>
 								</div>
 							</li>
 						</ul>
